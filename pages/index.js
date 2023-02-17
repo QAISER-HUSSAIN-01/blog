@@ -1,11 +1,59 @@
+import { Grid } from '@mui/material'
 import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
+import BlogCard from '../src/components/card'
 import styles from '../styles/Home.module.css'
 
-const inter = Inter({ subsets: ['latin'] })
-
 export default function Home() {
+  const cards = [
+    {
+      id: "1",
+      title: 'food',
+      description: 'about food which is good for human health',
+      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
+    },
+    {
+      id: "2",
+      title: 'Burger',
+      description: 'burger is a fastfood so it is not good for human health',
+      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    },
+    {
+      id: "3",
+      title: 'food',
+      description: 'about food which is good for human health',
+      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
+    },
+    {
+      id: "4",
+      title: 'Burger',
+      description: 'burger is a fastfood so it is not good for human health',
+      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    },
+    {
+      id: "5",
+      title: 'food',
+      description: 'about food which is good for human health',
+      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
+    },
+    {
+      id: "6",
+      title: 'Burger',
+      description: 'burger is a fastfood so it is not good for human health',
+      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    },
+    {
+      id: "7",
+      title: 'food',
+      description: 'about food which is good for human health',
+      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
+    },
+    {
+      id: "8",
+      title: 'Burger',
+      description: 'burger is a fastfood so it is not good for human health',
+      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
+    }
+  ]
   return (
     <>
       <Head>
@@ -15,108 +63,13 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={styles.main}>
-        <div className={styles.description}>
-          <p>
-            Get started by editing&nbsp;
-            <code className={styles.code}>pages/index.js</code>
-          </p>
-          <div>
-            <a
-              href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              By{' '}
-              <Image
-                src="/vercel.svg"
-                alt="Vercel Logo"
-                className={styles.vercelLogo}
-                width={100}
-                height={24}
-                priority
-              />
-            </a>
-          </div>
-        </div>
-
-        <div className={styles.center}>
-          <Image
-            className={styles.logo}
-            src="/next.svg"
-            alt="Next.js Logo"
-            width={180}
-            height={37}
-            priority
-          />
-          <div className={styles.thirteen}>
-            <Image
-              src="/thirteen.svg"
-              alt="13"
-              width={40}
-              height={31}
-              priority
-            />
-          </div>
-        </div>
-
-        <div className={styles.grid}>
-          <a
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Docs <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Find in-depth information about Next.js features and&nbsp;API.
-            </p>
-          </a>
-
-          <a
-            href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Learn <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Learn about Next.js in an interactive course with&nbsp;quizzes!
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Templates <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Discover and deploy boilerplate example Next.js&nbsp;projects.
-            </p>
-          </a>
-
-          <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Deploy <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Instantly deploy your Next.js site to a shareable URL
-              with&nbsp;Vercel.
-            </p>
-          </a>
-        </div>
+        <Grid container spacing={2}>
+          {cards.map((item, index) => (
+            <Grid item key={index} lg={3} md={3} sm={6} xs={12}>
+              <BlogCard item={item} />
+            </Grid>
+          ))}
+        </Grid>
       </main>
     </>
   )
