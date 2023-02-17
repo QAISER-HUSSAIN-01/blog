@@ -1,4 +1,5 @@
 import User from "../models/user";
+import {hash} from 'bcrypt';
 
 export const createUser = async (req, res) => {
     const { name, email, password } = req.body;
@@ -6,7 +7,8 @@ export const createUser = async (req, res) => {
     const isExist = await User.findOne({ email: email });
     if (isExist) { return res.status(302).json({ status: false, message: 'user already exist with this email' }) }
     try {
-        const created = await User.create(req.body);
+        const hashed = await hash(password,10);
+        const created = await User.create({name:name,email:email,password:hashed});
         if (!created) {return res.status(400).json({ status: false, message: 'user not created something went wrong'}) }
         return res.status(201).json({ status: true, message: 'user created', data: created });
     } catch(err){ res.status(500).json({ status: false, message: 'something went wrong while creating user' }) }
