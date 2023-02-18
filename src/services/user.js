@@ -1,8 +1,9 @@
 import axios from "axios";
 
+const URL = process.env.NODE_ENV === 'development' ? 'https://blog-snowy-one-63.vercel.app':'http://localhost:3000'
 export const loginUser = async(data)=>{
     try{
-        const res = await axios.post(`http://localhost:3000/api/login`,data);
+        const res = await axios.post(`${URL}/api/login`,data);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -13,7 +14,7 @@ export const loginUser = async(data)=>{
 
 export const createUser = async(data)=>{
     try{
-        const res = await axios.post(`http://localhost:3000/api/user`,data);
+        const res = await axios.post(`${URL}/api/user`,data);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -23,7 +24,7 @@ export const createUser = async(data)=>{
 
 export const getAllUsers = async()=>{
     try{
-        const res = await axios.get(`http://localhost:3000/api/user`);
+        const res = await axios.get(`${URL}/api/user`);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -32,7 +33,7 @@ export const getAllUsers = async()=>{
 
 export const getUser = async(id)=>{
     try{
-        const res = await axios.get(`http://localhost:3000/api/user/${id}`);
+        const res = await axios.get(`${URL}/api/user/${id}`);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -41,7 +42,7 @@ export const getUser = async(id)=>{
 }
 export const updateUser = async(id)=>{
     try{
-        const res = await axios.patch(`http://localhost:3000/api/user/${id}`);
+        const res = await axios.patch(`${URL}/api/user/${id}`);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -51,7 +52,7 @@ export const updateUser = async(id)=>{
 
 export const deleteUser = async(id)=>{
     try{
-        const res = await axios.delete(`http://localhost:3000/api/user/${id}`);
+        const res = await axios.delete(`${URL}/api/user/${id}`);
         return res.data;
     }catch(err){
         return err.response.data;
