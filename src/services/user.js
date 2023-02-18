@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const URL = process.env.NODE_ENV === 'development' ? 'https://blog-snowy-one-63.vercel.app':'http://localhost:3000'
+const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000':'https://blog-snowy-one-63.vercel.app';
+
 export const loginUser = async(data)=>{
     try{
         const res = await axios.post(`${URL}/api/login`,data);
