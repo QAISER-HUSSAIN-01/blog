@@ -1,7 +1,7 @@
-import { login } from '../../src/controllers/login';
+import { login } from '../../src/controllers/user';
 import db from '../../src/database/db';
 
 export default async function handler(req, res) {
     await db.connect();
-    await login(req,res);
+    return await login(req,res);
 }

@@ -4,6 +4,7 @@ import Input from '../input';
 
 export default function Comment() {
     const handleChange = ()=>{}
+    const handleSubmit = ()=>{}
     return (
         <Box sx={{ maxWidth:'700px',mt:'20px'}}>
             <Input
@@ -18,7 +19,7 @@ export default function Comment() {
             <StyledButton
                 text={'post'}
                 color={'warning'}
-                handleClick={''}
+                handleClick={handleSubmit}
             />
             </Box>
         </Box>

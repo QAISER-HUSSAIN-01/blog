@@ -1,5 +1,37 @@
 import User from "../models/user";
-import {hash} from 'bcrypt';
+import {hash,compare} from 'bcrypt';
+// import {serialize}from 'cookie';
+import {sign} from 'jsonwebtoken'
+
+export const login = async (req,res)=>{
+    const {email,password} = req.body;
+    console.log('header cookie',req.cookies.token);
+    if (!email || !password) { return res.status(404).json({ status: false, message: 'please fill al fields' }) }
+    try{
+        const isExist = await User.findOne({email:email});
+
+        if(!isExist){return res.status(302).json({ status: false, message: 'email and password is incorrect' })}
+        const passwordCompared = await compare(password,isExist.password);
+        if(!passwordCompared){return res.status(404).json({ status: false, message: 'email and password is incorrect' })}
+        const token = await sign({id:isExist._id,email:email,name:isExist.name},process.env.SECRET,{expiresIn:'10h'});
+        
+        // const serialized = serialize("token",token, {
+        //     httpOnly:true,
+        //     secure:process.env.NODE_ENV !== "development",
+        //     sameSite:"strict",
+        //     maxAge: 60 * 60 * 24 * 30,
+        //     path:'/'    
+        // });
+        // res.setHeader('Set-Cookie',serialized);
+        // console.log('cookie set success',serialized);
+
+        return res.status(201).json({ status: true, message: 'user created', data: {token:token,user:isExist} });
+    }
+    catch(e){
+        return res.status(500).json({ status: false, message: 'credentials failed', data: [] });
+    }
+}
+
 
 export const createUser = async (req, res) => {
     const { name, email, password } = req.body;

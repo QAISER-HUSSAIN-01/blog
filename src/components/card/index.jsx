@@ -11,10 +11,10 @@ export default function BlogCard({ item }) {
             />
             <CardContent>
                 <Typography variant='h6' component='div'>{item.title}</Typography>
-                <Typography variant='body2' component='div'>{item.description}</Typography>
+                <Typography variant='body2' component='div'>{item.caption}</Typography>
             </CardContent>
             <CardActions>
-                <Link href={`/${item.id}`}>Read</Link>
+                <Link href={`/${item._id}`}>Read</Link>
                 {/* <Link href={`/${item.id}`}>Share</Link> */}
             </CardActions>
         </Card>

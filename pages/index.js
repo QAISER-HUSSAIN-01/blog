@@ -1,59 +1,11 @@
 import { Grid } from '@mui/material'
+import axios from 'axios'
 import Head from 'next/head'
 import BlogCard from '../src/components/card'
 import styles from '../styles/Home.module.css'
-
-export default function Home() {
-  const cards = [
-    {
-      id: "1",
-      title: 'food',
-      description: 'about food which is good for human health',
-      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
-    },
-    {
-      id: "2",
-      title: 'Burger',
-      description: 'burger is a fastfood so it is not good for human health',
-      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-      id: "3",
-      title: 'food',
-      description: 'about food which is good for human health',
-      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
-    },
-    {
-      id: "4",
-      title: 'Burger',
-      description: 'burger is a fastfood so it is not good for human health',
-      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-      id: "5",
-      title: 'food',
-      description: 'about food which is good for human health',
-      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
-    },
-    {
-      id: "6",
-      title: 'Burger',
-      description: 'burger is a fastfood so it is not good for human health',
-      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    },
-    {
-      id: "7",
-      title: 'food',
-      description: 'about food which is good for human health',
-      img: 'https://images.pexels.com/photos/70497/pexels-photo-70497.jpeg'
-    },
-    {
-      id: "8",
-      title: 'Burger',
-      description: 'burger is a fastfood so it is not good for human health',
-      img: 'https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1'
-    }
-  ]
+import {getAllBlogs} from '../src/services/blog'
+export default function Home({blogs}) {
+  
   return (
     <>
       <Head>
@@ -64,7 +16,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Grid container spacing={2}>
-          {cards.map((item, index) => (
+          {blogs?.map((item, index) => (
             <Grid item key={index} lg={3} md={3} sm={6} xs={12}>
               <BlogCard item={item} />
             </Grid>
@@ -73,4 +25,20 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export async function getServerSideProps(){
+ const res = await getAllBlogs();
+ if(!res.status){
+  return {
+    props:{
+      blogs:[]
+    }
+  }
+ } 
+ return {
+  props:{
+    blogs:res.data
+  }
+ }
 }

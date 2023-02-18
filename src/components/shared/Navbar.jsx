@@ -1,8 +1,14 @@
-import { AppBar, Toolbar, Typography, IconButton, Avatar, Box, TextField, MenuItem } from '@mui/material'
+import { AppBar, Toolbar, Typography, IconButton, Avatar, Box, TextField, MenuItem, Button } from '@mui/material'
+import Link from 'next/link';
 import { useState } from 'react';
 import ProfileMenu from '../menu';
+import { useCookies, } from 'react-cookie'
+import { useRouter } from 'next/router';
+
 export default function Navbar() {
+    const [cookies, setCookie, removeCookie] = useCookies();
     const [anchorEl, setAnchorEl] = useState(null);
+    const router = useRouter();
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -10,6 +16,14 @@ export default function Navbar() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+    const handleCreate = () => {
+        setAnchorEl(null);
+        router.push('/create')
+    }
+    const handleLogout = () => {
+        setAnchorEl(null);
+        removeCookie('token');
+    }
 
     return (
         <AppBar position='fixed'>
@@ -19,30 +33,38 @@ export default function Navbar() {
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
 
-                    <TextField
+                    {/* <TextField
                         select
                         defaultValue={'categories'}
                         variant='standard'
                         sx={{ border: 'none', color: 'white', background: 'white', width: '200px' }}
                     >
-
                         <MenuItem value='foods' >Foods</MenuItem>
                         <MenuItem value='sports' >Sports</MenuItem>
                         <MenuItem value='programming' >Programming</MenuItem>
-
-                    </TextField>
-
+                    </TextField> */}
+                    
+                    {/* {cookies.token ?
+                        <Link href='/create'>create</Link>
+                        :
+                        <IconButton onClick={handleClick}>
+                            <Avatar />
+                        </IconButton>
+                    } */}
                     <IconButton onClick={handleClick}>
                         <Avatar />
                     </IconButton>
-
                 </Box>
+
                 <ProfileMenu
                     anchorEl={anchorEl}
                     open={open}
                     handleClose={handleClose}
+                    handleLogout={handleLogout}
+                    handleCreate={handleCreate}
+                    token={cookies ? cookies.token : ''}
                 />
             </Toolbar>
-        </AppBar>
+        </AppBar >
     )
 }

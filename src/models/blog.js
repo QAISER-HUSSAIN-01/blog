@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const blogSchema = mongoose.Schema({
     userId:{type:mongoose.Schema.Types.ObjectId,required:true},
+    img:{type:String,required:true},
     title:{type:String,required:true},
     caption:{type:String,required:false},
     description:{type:String,required:true},

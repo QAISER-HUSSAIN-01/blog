@@ -1,5 +1,16 @@
 import axios from "axios";
 
+export const loginUser = async(data)=>{
+    try{
+        const res = await axios.post(`http://localhost:3000/api/login`,data);
+        return res.data;
+    }catch(err){
+        return err.response.data;
+    }
+   
+}
+
+
 export const createUser = async(data)=>{
     try{
         const res = await axios.post(`http://localhost:3000/api/user`,data);

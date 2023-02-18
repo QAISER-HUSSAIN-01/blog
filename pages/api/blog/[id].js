@@ -1,4 +1,4 @@
-import { getBlog, deleteBlog,updateBlog } from '../../../src/controllers/user';
+import { getBlog, deleteBlog,updateBlog } from '../../../src/controllers/blog';
 import db from '../../../src/database/db';
 
 export default async function handler(req, res) {
