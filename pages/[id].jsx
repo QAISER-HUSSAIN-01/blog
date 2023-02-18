@@ -16,7 +16,7 @@ export default function BlogDetail({blog}){
 export async function getServerSideProps(context){
      const {id} = context.params;
      const res = await getBlog(id);
-     if(!res.status){return{props:{blog:''}}}y
+     if(!res.status){return{props:{blog:''}}}
      return{
         props:{blog:res.data}
     }
