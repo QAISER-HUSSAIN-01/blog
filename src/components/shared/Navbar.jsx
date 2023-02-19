@@ -4,15 +4,20 @@ import { useState } from 'react';
 import ProfileMenu from '../menu';
 import { useCookies, } from 'react-cookie'
 import { useRouter } from 'next/router';
-
+import {verify} from 'jsonwebtoken';
 export default function Navbar() {
     const [cookies, setCookie, removeCookie] = useCookies();
     const [anchorEl, setAnchorEl] = useState(null);
     const router = useRouter();
+
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const handleProfile = ()=>{
+        setAnchorEl(null);
+        router.push('/profile')
+    }
     const handleClose = () => {
         setAnchorEl(null);
     };
@@ -62,6 +67,7 @@ export default function Navbar() {
                     handleClose={handleClose}
                     handleLogout={handleLogout}
                     handleCreate={handleCreate}
+                    handleProfile={handleProfile}
                     token={cookies ? cookies.token : ''}
                 />
             </Toolbar>

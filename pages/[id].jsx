@@ -5,7 +5,6 @@ import { getBlog } from '../src/services/blog';
 
 
 export default function BlogDetail({ blog }) {
-    console.log(blog);
     return (
         <Box>
             <Typography variant="h5" component='div'> {blog ? blog.title : 'not found'} </Typography>

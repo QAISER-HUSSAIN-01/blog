@@ -4,9 +4,11 @@ import StyledButton from '../../src/components/button';
 import { useState } from "react";
 import {createBlog} from '../../src/services/blog';
 import { useRouter } from "next/router";
+import { useSnackbar } from "notistack";
 export default function CreateBlog() {
     const [blogForm,setBlogForm] = useState({img:'',title:'',caption:'',description:''});
     const router = useRouter();
+    const {enqueueSnackbar} = useSnackbar()
     const fields = [
         {
             type: 'text',
@@ -41,9 +43,11 @@ export default function CreateBlog() {
     const handleChange = (e) => { setBlogForm({...blogForm,[e.target.name]:e.target.value})}
     const handleSubmit = async() => { 
         const res = await createBlog(blogForm);
-        console.log(res);
-        if(!res.status){return 'not created'}
+        if(!res.status){
+            return enqueueSnackbar(res.message,{variant:'error'})
+        }
         else{
+            enqueueSnackbar(res.message,{variant:'success'})
             setBlogForm({img:'',title:'',caption:'',description:''});
             router.push('/')
         }

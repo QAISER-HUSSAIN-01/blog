@@ -23,7 +23,6 @@ export const createBlog = async (req, res) => {
     } catch (err) { res.status(500).json({ status: false, message: 'not authorized' }) }
 }
 
-
 export const getAllBlogs = async (req, res) => {
     try {
         const blogs = await Blog.find()
@@ -36,12 +35,10 @@ export const getBlog = async (req, res) => {
     const { id } = req.query;
     try {
         const blog = await Blog.findById(id).populate({ path: 'comments', model: Comment, populate:{path:'userId',select:['name','email'],model:User}})
-        // const blog = await Blog.findById(id).populate({path:'comments',model:Comment, populate:{path:'userId',model:User}});
         if (!blog) { return res.status(404).json({ status: false, message: 'blog not found' }) }
         return res.status(200).json({ status: true, message: 'user found', data: blog });
     } catch (err) { res.status(500).json({ status: false, message: err.name }) }
 }
-
 
 export const deleteBlog = async (req, res) => {
     const { id } = req.query;

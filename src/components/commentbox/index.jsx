@@ -4,14 +4,19 @@ import StyledButton from "../button";
 import Input from '../input';
 import {createComment} from '../../services/comment';
 import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
 export default function CommentBox({id}) {
+    const router = useRouter();
     const [comment, setComment] = useState({id:id,comment:''})
     const {enqueueSnackbar} = useSnackbar()
     const handleChange = (e)=>{setComment({...comment,comment:e.target.value})}
     const handleSubmit = async()=>{
         const res = await createComment(comment);
-        if(!res.status){return enqueueSnackbar(res.message,{variant:'error'})}
+        if(!res.status){
+            return enqueueSnackbar(res.message,{variant:'error'})
+        }
         enqueueSnackbar(res.message,{variant:'success'});
+        router.push(router.asPath)
         setComment({id:id,comment:''});
     }
 

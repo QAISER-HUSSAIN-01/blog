@@ -4,7 +4,7 @@ import Blog from "../models/blog";
 import User from '../models/user';
 export const createComment = async (req, res) => {
     const { cookies } = req;
-    if (!cookies.token) { return res.status(404).json({ status: false, message: 'not authorized please login first' }) }
+    if (!cookies.token) { return res.status(404).json({ status: false, message: 'please login first', url:'/login' }) }
     const { id, comment } = req.body;
     if (!id || !comment) { return res.status(404).json({ status: false, message: 'please write what is in your mind!' }) }
     try {

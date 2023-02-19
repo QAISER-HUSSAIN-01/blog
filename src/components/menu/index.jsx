@@ -1,8 +1,9 @@
-import { Avatar, Box, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import { Avatar, Box, Button, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import Link from "next/link";
-import { MdSettings, MdPersonAdd, MdLogout } from 'react-icons/md';
+import {  MdLogout, MdCreate } from 'react-icons/md';
 
-export default function ProfileMenu({ open, anchorEl, handleClose, handleLogout, token, handleCreate }) {
+
+export default function ProfileMenu({ open, anchorEl, handleClose, handleLogout, token, handleCreate,handleProfile }) {
     return (
         <Menu
             anchorEl={anchorEl}
@@ -42,25 +43,28 @@ export default function ProfileMenu({ open, anchorEl, handleClose, handleLogout,
         >
             {token ?
                 <Box>
-                    <MenuItem onClick={handleClose}>
+                    <MenuItem onClick={handleProfile}>
                         <Avatar /> Profile
                     </MenuItem>
 
                     <MenuItem onClick={handleCreate}>
-                        <Avatar /> Create
+                    <ListItemIcon>
+                            <MdCreate fontSize="large"/>
+                        </ListItemIcon>
+                         Create
                     </MenuItem>
 
                     <Divider />
 
                     <MenuItem onClick={handleLogout}>
                         <ListItemIcon>
-                            <MdLogout fontSize="small" />
+                            <MdLogout fontSize="large" />
                         </ListItemIcon>
                         Logout
                     </MenuItem>
                 </Box>
                 :
-                <Link href={'/login'}>login</Link>
+                <Link href={'/login'} style={{textDecoration:'none',paddingX:'10px'}}><Button variant="contained" color='warning' fullWidth>login</Button></Link>
             }
         </Menu>
     )

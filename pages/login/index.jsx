@@ -7,10 +7,12 @@ import { useState } from "react";
 import { loginUser } from "../../src/services/user";
 import {useCookies} from 'react-cookie';
 import {useRouter} from 'next/router';
+import { useSnackbar } from "notistack";
 
 export default function Login() {
     const [loginForm,setLoginForm] = useState({email:'',password:''});
     const [cookies,setCookies]= useCookies();
+    const {enqueueSnackbar} = useSnackbar()
     const router = useRouter();
     const loginFields = [
         {
@@ -33,14 +35,13 @@ export default function Login() {
         setLoginForm({...loginForm, [e.target.name]:e.target.value})
     }
     const handleSubmit = async()=>{
-        console.log(loginForm);
         const res = await loginUser(loginForm);
         console.log(res);
         if(!res.status){
-          return 
+          return enqueueSnackbar(res.message,{variant:'error'})
         }else{
+            enqueueSnackbar(res.message,{variant:'success'})
             setCookies("token",res.data.token,{maxAge:60*60*24*30});
-            router.push('/');
             setLoginForm({email:'',password:''});
         }
     }
