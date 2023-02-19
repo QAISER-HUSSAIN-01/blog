@@ -1,4 +1,4 @@
-import { Avatar, Box, Button, Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import { Avatar, Box, Button, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import Link from "next/link";
 import {  MdLogout, MdCreate } from 'react-icons/md';
 
@@ -43,9 +43,13 @@ export default function ProfileMenu({ open, anchorEl, handleClose, handleLogout,
         >
             {token ?
                 <Box>
-                    <MenuItem onClick={handleProfile}>
+                    {/* <MenuItem onClick={handleProfile}>
                         <Avatar /> Profile
-                    </MenuItem>
+                        <Box component='span' sx={{display:'flex',flexDirection:'column'}}>
+                           <Typography component='span' variant='body2'> {name} </Typography>
+                           <Typography component='span' variant='caption'> {email} </Typography>
+                        </Box> 
+                    </MenuItem> */}
 
                     <MenuItem onClick={handleCreate}>
                     <ListItemIcon>

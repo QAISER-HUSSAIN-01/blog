@@ -3,7 +3,7 @@ import Input from '../../src/components/input';
 import StyledButton from '../../src/components/button';
 import Link from "next/link";
 // import {loginFields} from '../../src/utils/userFields';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { loginUser } from "../../src/services/user";
 import {useCookies} from 'react-cookie';
 import {useRouter} from 'next/router';
@@ -42,9 +42,14 @@ export default function Login() {
         }else{
             enqueueSnackbar(res.message,{variant:'success'})
             setCookies("token",res.data.token,{maxAge:60*60*24*30});
+            // localStorage.setItem('name',res.data.user.name)
+            // localStorage.setItem('email',res.data.user.email)
+            // localStorage.setItem('id',res.data.user._id)
             setLoginForm({email:'',password:''});
         }
     }
+
+
     
     return (
         <Box sx={{ display: 'flex', justifyContent: 'center' }}>

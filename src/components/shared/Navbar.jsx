@@ -28,8 +28,13 @@ export default function Navbar() {
     const handleLogout = () => {
         setAnchorEl(null);
         removeCookie('token');
+        // localStorage.removeItem('id')
+        // localStorage.removeItem('name')
+        // localStorage.removeItem('email')
     }
-
+    // const id = localStorage.getItem('id')
+    // const name = localStorage.getItem('name')
+    // const email = localStorage.getItem('email')
     return (
         <AppBar position='fixed'>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
@@ -58,6 +63,7 @@ export default function Navbar() {
                     } */}
                     <IconButton onClick={handleClick}>
                         <Avatar />
+                        {/* <Avatar sx={{backgroundColor:name? 'orange':'gray'}}>{name ? name[0] : 'No'}</Avatar> */}
                     </IconButton>
                 </Box>
 
@@ -69,6 +75,9 @@ export default function Navbar() {
                     handleCreate={handleCreate}
                     handleProfile={handleProfile}
                     token={cookies ? cookies.token : ''}
+                    // name={name ? name : ''}
+                    // email={email ? email : ''}
+
                 />
             </Toolbar>
         </AppBar >
