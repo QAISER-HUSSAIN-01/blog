@@ -1,5 +1,7 @@
 import Blog from "../models/blog";
-import { decode, verify, } from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
+import Comment from '../models/comment';
+import User from "../models/user";
 
 export const createBlog = async (req, res) => {
     const { cookies } = req;
@@ -10,24 +12,22 @@ export const createBlog = async (req, res) => {
         console.log('try block start');
         const verifiedUser = await verify(cookies.token, process.env.SECRET);
         const created = await Blog.create({
-            userId:verifiedUser.id,
-            img:img,
-            title:title,
-            caption:caption,
-            description:description
+            userId: verifiedUser.id,
+            img: img,
+            title: title,
+            caption: caption,
+            description: description
         })
-        if(!created){return res.status(400).json({ status: false, message: 'blog not created due to some error'}) }
-        return res.status(201).json({ status: true, message: 'blog created', data:created});
+        if (!created) { return res.status(400).json({ status: false, message: 'blog not created due to some error' }) }
+        return res.status(201).json({ status: true, message: 'blog created', data: created });
     } catch (err) { res.status(500).json({ status: false, message: 'not authorized' }) }
 }
 
 
 export const getAllBlogs = async (req, res) => {
     try {
-        console.log('blog start');
-        const blogs = await Blog.find();
-        console.log('blog find');
-        if (!blogs) { return res.status(404).json({ status: false, message: 'blogs not found'})}
+        const blogs = await Blog.find()
+        if (!blogs) { return res.status(404).json({ status: false, message: 'blogs not found' }) }
         return res.status(200).json({ status: true, message: 'blogs fetched', data: blogs });
     } catch (err) { res.status(500).json({ status: false, message: 'something went wrong , blogs not found' }) }
 }
@@ -35,9 +35,8 @@ export const getAllBlogs = async (req, res) => {
 export const getBlog = async (req, res) => {
     const { id } = req.query;
     try {
-        const blog = await Blog.findById(id);
-        // const blog = await Blog.findById(id).populate({path:'comments',model:'Comment'});
-        // const blog = await Blog.findById(id).populate({path:'comments',model:'Comment',populate:{path:'userId',model:'user'}});
+        const blog = await Blog.findById(id).populate({ path: 'comments', model: Comment, populate:{path:'userId',select:['name','email'],model:User}})
+        // const blog = await Blog.findById(id).populate({path:'comments',model:Comment, populate:{path:'userId',model:User}});
         if (!blog) { return res.status(404).json({ status: false, message: 'blog not found' }) }
         return res.status(200).json({ status: true, message: 'user found', data: blog });
     } catch (err) { res.status(500).json({ status: false, message: err.name }) }

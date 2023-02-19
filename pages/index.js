@@ -16,11 +16,14 @@ export default function Home({blogs}) {
       </Head>
       <main className={styles.main}>
         <Grid container spacing={2}>
-          {blogs?.map((item, index) => (
+          {blogs[0] ? blogs?.map((item, index) => (
             <Grid item key={index} lg={3} md={4} sm={6} xs={12}>
               <BlogCard item={item} />
             </Grid>
-          ))}
+          ))
+        :
+        'blogs not found'
+        }
         </Grid>
       </main>
     </>

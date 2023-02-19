@@ -1,36 +1,36 @@
 import { decode, verify, } from 'jsonwebtoken';
 import Comment from "../models/comment";
 import Blog from "../models/blog";
-
+import User from '../models/user';
 export const createComment = async (req, res) => {
     const { cookies } = req;
-    if (!cookies.token) { return res.status(404).json({ status: false, message: 'not authorized please login first'}) }
-    const {id, comment } = req.body;
-    if (!id || !comment ) { return res.status(404).json({ status: false, message: 'please write what is in your mind!' }) }
+    if (!cookies.token) { return res.status(404).json({ status: false, message: 'not authorized please login first' }) }
+    const { id, comment } = req.body;
+    if (!id || !comment) { return res.status(404).json({ status: false, message: 'please write what is in your mind!' }) }
     try {
         console.log('try block start');
         const verifiedUser = await verify(cookies.token, process.env.SECRET);
         const created = await Comment.create({
-            userId:verifiedUser.id,
-            comment:comment
+            userId: verifiedUser.id,
+            comment: comment
         })
-        if(!created){return res.status(400).json({ status: false, message: 'comment not created due to some errors'}) }
-        const blogUpdated = await Blog.findByIdAndUpdate(id,{
-           $push: {comments:created._id}
-        },{new:true})
-        if(!blogUpdated){return res.status(400).json({ status: false, message: 'comment created, blog updation failed '})}
+        if (!created) { return res.status(400).json({ status: false, message: 'comment not created due to some errors' }) }
+        const blogUpdated = await Blog.findByIdAndUpdate(id, {
+            $push: { comments: created._id }
+        }, { new: true })
+        if (!blogUpdated) { return res.status(400).json({ status: false, message: 'comment created, blog updation failed ' }) }
         console.log(blogUpdated);
-        return res.status(201).json({ status: true, message: 'blog created', data:created});
+        return res.status(201).json({ status: true, message: 'blog created', data: created });
     } catch (err) { res.status(500).json({ status: false, message: 'make sure you are logged in?' }) }
 }
 
 
 export const getAllComments = async (req, res) => {
     try {
-        const blogs = await Blog.find();
-        if (!blogs) { return res.status(404).json({ status: false, message: 'blogs not found'})}
-        return res.status(200).json({ status: true, message: 'blogs fetched', data: blogs });
-    } catch (err) { res.status(500).json({ status: false, message: 'something went wrong , blogs not found' }) }
+        const comments = await Comment.find();
+        if (!comments) { return res.status(404).json({ status: false, message: 'comments not found' }) }
+        return res.status(200).json({ status: true, message: 'comments fetched', data: comments });
+    } catch (err) { res.status(500).json({ status: false, message: 'something went wrong , comments not found' }) }
 }
 
 export const getBlog = async (req, res) => {

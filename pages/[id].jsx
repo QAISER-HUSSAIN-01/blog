@@ -1,16 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import CommentBox from "../src/components/commentbox";
 import Comments from "../src/components/comments";
-import { getBlog } from '../src/services/blog'
+import { getBlog } from '../src/services/blog';
+
 
 export default function BlogDetail({ blog }) {
+    console.log(blog);
     return (
         <Box>
             <Typography variant="h5" component='div'> {blog ? blog.title : 'not found'} </Typography>
             <Typography variant="body2" component='div' color={'grey'}>
                 {blog ? blog.description : 'not found'}
             </Typography>
-            <Comments item={blog.comments}/>
+            <Comments comments={blog.comments}/>
             <CommentBox id={blog._id}/>
         </Box>
     );

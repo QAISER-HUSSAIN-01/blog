@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
-
+import Comment from './comment';
 const blogSchema = mongoose.Schema({
     // userId:{type:mongoose.Schema.Types.ObjectId,required:true},
     img:{type:String,required:true},
     title:{type:String,required:true},
     caption:{type:String,required:false},
     description:{type:String,required:true},
-    comments:[{type:mongoose.Schema.Types.ObjectId,required:false,ref:'Comment'}],
+    comments:[{type:mongoose.Schema.Types.ObjectId,ref:Comment,required:false}],
     likes:[{type:mongoose.Schema.Types.ObjectId,required:false}],
 }
 ,

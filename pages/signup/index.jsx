@@ -6,10 +6,12 @@ import Link from "next/link";
 import {createUser} from '../../src/services/user';
 import { useState } from "react";
 import { useSnackbar } from "notistack";
+import { useRouter } from "next/router";
 
 export default function Signup() {
     const [signupForm,setSignupForm] = useState({name:'',email:'',password:''});
-    const {enqueueSnackbar} = useSnackbar()
+    const {enqueueSnackbar} = useSnackbar();
+    const router = useRouter();
     const signupFields = [
         {
             type: 'text',
@@ -38,10 +40,11 @@ export default function Signup() {
     const handleSubmit = async()=>{ 
         const res = await createUser(signupForm);
         if(!res.status){
-            setSignupForm({name:'',email:'',password:''});
             return enqueueSnackbar(res.message,{variant:'error'})
         }
+        router.push('/login');
         enqueueSnackbar(res.message,{variant:'success'})
+        setSignupForm({name:'',email:'',password:''})
         console.log('response back', res);
     }
     return (
