@@ -1,10 +1,20 @@
 import { Box } from "@mui/material";
+import { useState } from "react";
 import StyledButton from "../button";
 import Input from '../input';
+import {createComment} from '../../services/comment';
+import { useSnackbar } from "notistack";
+export default function CommentBox({id}) {
+    const [comment, setComment] = useState({id:id,comment:''})
+    const {enqueueSnackbar} = useSnackbar()
+    const handleChange = (e)=>{setComment({...comment,comment:e.target.value})}
+    const handleSubmit = async()=>{
+        const res = await createComment(comment);
+        if(!res.status){return enqueueSnackbar(res.message,{variant:'error'})}
+        enqueueSnackbar(res.message,{variant:'success'});
+        setComment({id:id,comment:''});
+    }
 
-export default function Comment() {
-    const handleChange = ()=>{}
-    const handleSubmit = ()=>{}
     return (
         <Box sx={{ maxWidth:'700px',mt:'20px'}}>
             <Input
@@ -14,6 +24,7 @@ export default function Comment() {
                 multiline={true}
                 rows={3}
                 handleChange={handleChange}
+                value={comment.comment}
             />
             <Box sx={{ mt:'10px',display:'flex',justifyContent:'flex-end' }}>
             <StyledButton

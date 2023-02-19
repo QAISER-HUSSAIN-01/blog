@@ -3,7 +3,7 @@ import Link from 'next/link'
 export default function BlogCard({ item }) {
 
     return (
-        <Card sx={{ '&:hover': { boxShadow: '2px 2px 5px black ' } }}>
+        <Card sx={{ '&:hover': { boxShadow: '2px 2px 5px black ' },height:'300px' }}>
             <CardMedia
                 sx={{ height: 150, width: '100%' }}
                 image={item.img}

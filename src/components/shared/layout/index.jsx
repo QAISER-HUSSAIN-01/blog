@@ -5,7 +5,7 @@ export default function Layout({ children }) {
         <>
             <Box>
                 <Navbar />
-                <Box marginTop={6} pt={5} px={10}>
+                <Box sx={{marginTop:6,pt:5,px:{xs:2,sm:4,md:6,lg:10}}}>
                     {children}
                 </Box>
             </Box>

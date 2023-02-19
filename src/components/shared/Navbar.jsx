@@ -29,7 +29,7 @@ export default function Navbar() {
         <AppBar position='fixed'>
             <Toolbar sx={{ justifyContent: 'space-between' }}>
 
-                <Typography variant='h6' component='div'>BLOG APP</Typography>
+                <Typography variant='h6' component='div' onClick={()=>{router.push('/')}}>BLOG APP</Typography>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 5 }}>
 

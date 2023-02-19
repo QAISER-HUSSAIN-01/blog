@@ -1,9 +1,10 @@
 import axios from "axios";
+
 const URL = process.env.NODE_ENV === 'development' ? 'http://localhost:3000':'https://blog-snowy-one-63.vercel.app';
 
-export const createBlog = async(data)=>{
+export const createComment = async(data)=>{
     try{
-        const res = await axios.post(`${URL}/api/blog`,data);
+        const res = await axios.post(`${URL}/api/comment`,data);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -11,10 +12,9 @@ export const createBlog = async(data)=>{
    
 }
 
-export const getAllBlogs = async()=>{
+export const getAllComments = async()=>{
     try{
-        const res = await axios.get(`${URL}/api/blog`);
-        console.log('blogs',res);
+        const res = await axios.get(`${URL}/api/comment`);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -23,16 +23,16 @@ export const getAllBlogs = async()=>{
 
 export const getBlog = async(id)=>{
     try{
-        const res = await axios.get(`${URL}/api/blog/${id}`);
+        const res = await axios.get(`${URL}/api/comment/${id}`);
         return res.data;
     }catch(err){
         return err.response.data;
     }
    
 }
-export const updateBlog = async(id)=>{
+export const updateComments = async(id)=>{
     try{
-        const res = await axios.patch(`${URL}/api/blog/${id}`);
+        const res = await axios.patch(`${URL}/api/comment/${id}`);
         return res.data;
     }catch(err){
         return err.response.data;
@@ -40,9 +40,9 @@ export const updateBlog = async(id)=>{
    
 }
 
-export const deleteBlog = async(id)=>{
+export const deleteComment = async(id)=>{
     try{
-        const res = await axios.delete(`${URL}/api/blog/${id}`);
+        const res = await axios.delete(`${URL}/api/comment/${id}`);
         return res.data;
     }catch(err){
         return err.response.data;
