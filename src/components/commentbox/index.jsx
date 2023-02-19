@@ -13,6 +13,7 @@ export default function CommentBox({id}) {
     const handleSubmit = async()=>{
         const res = await createComment(comment);
         if(!res.status){
+            router.push('/login')
             return enqueueSnackbar(res.message,{variant:'error'})
         }
         enqueueSnackbar(res.message,{variant:'success'});
